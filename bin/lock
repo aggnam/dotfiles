@@ -1,0 +1,19 @@
+#!/bin/sh
+
+D=`date`
+echo "[$D] locking"
+
+# kill any active tokens
+doas -L
+ssh-add -D
+
+# clear clipboard
+echo -n | pbcopy
+
+pkill -KILL -f chat@
+#if [ ! `pgrep sdorfehs` = "" ]; then
+#	echo nokeepalive > ~/.config/sdorfehs/bar-control
+#fi
+~/bin/music pause
+pkill -9 vlc
+slock

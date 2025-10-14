@@ -1,0 +1,45 @@
+#!/bin/sh
+
+TMOUT=300
+LOCK="$HOME/bin/lock"
+
+_xidle() {
+	pgrep -u "$(id -u)" -x xidle
+}
+
+case "$1" in
+	enable)
+		if _xidle >/dev/null; then
+			echo "xidle already running"
+		else
+			xidle -timeout "$TMOUT" -program "$LOCK" &
+			echo "nokeepalive"
+		fi
+		;;
+	disable)
+		if _xidle >/dev/null; then
+			_xidle | xargs kill
+			echo "keepalive"
+		else
+			echo "xidle is not running"
+		fi
+		;;
+	status)
+		if _xidle >/dev/null; then
+      		echo "xidle is running (PID(s): $(_xidle | paste -sd ' '))"
+    	else
+      		echo "xidle is not running"
+    	fi
+    	;;
+	toggle)
+		if _xidle >/dev/null; then
+			"$0" disable
+		else
+			"$0" enable
+		fi
+		;;
+	*)
+		echo "Usage: $0 {enable|disable|toggle|status}"
+		exit 1
+		;;
+esac
