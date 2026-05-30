@@ -1,0 +1,24 @@
+[user]
+	email = mangga@disroot.org
+	name = muhamad angga
+
+[alias]
+	catchup = !git fetch upstream && git rebase upstream/master
+	diff-remote = diff origin..master
+	ff = pull --ff-only
+	fixup = rebase -i HEAD~5
+	tree = log --graph --pretty=format:'[%h] [%<(8,trunc)%al] [%cs] %<(50,trunc)%s' --abbrev-commit
+	touch = commit --amend --reset-author --no-edit
+[commit]
+	verbose = true
+[push]
+	default = simple
+[color]
+	ui = never
+[diff]
+	compaction-heuristic = true
+	noprefix = true
+[http]
+	cookiefile = /home/ma/.gitcookies
+[rebase]
+	autostash = true
