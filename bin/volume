@@ -1,6 +1,6 @@
 #!/bin/sh
 
-OSD_CAT="osd_cat -p top -A center -f \"Helvetica Neue Bold 28\" \
+OSD_CAT="osd_cat -p bottom -A center -f \"-*-helvetica-*-r-*-*-28-*-*-*-*-*-*\" \
 	-b percentage -o 150 -c \"#00ee00\" -s 1 -l 1 -d 1"
 
 case "$1" in

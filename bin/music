@@ -1,14 +1,11 @@
 #!/bin/sh
 
 CMUS="cmus"
-PIANOBAR="pianobar"
 AUDACIOUS="audacious"
 
 PLAYER=""
 if [ ! X`pgrep cmus | sed -n '1p'` = X"" ]; then
 	PLAYER=$CMUS
-elif [ ! X`pgrep pianobar` = X"" ]; then
-	PLAYER=$PIANOBAR
 elif [ ! X`pgrep audacious` = X"" ]; then
 	PLAYER=$AUDACIOUS
 else
@@ -22,9 +19,6 @@ next)
 	$CMUS)
 		cmus-remote -n
 		;;
-	$PIANOBAR)
-		echo -n 'n' > ~/.config/pianobar/ctl
-		;;
 	$AUDACIOUS)
 		audtool playlist-advance
 		;;
@@ -34,9 +28,6 @@ nextalbum)
 	case $PLAYER in
 	$CMUS)
 		cmus-remote -C "player-next-album"
-		;;
-	$PIANOBAR)
-		echo -n 'n' > ~/.config/pianobar/ctl
 		;;
 	$AUDACIOUS)
 		audtool playlist-advance-album
@@ -48,9 +39,6 @@ prev)
 	$CMUS)
 		cmus-remote -r
 		;;
-	$PIANOBAR)
-		# not possible
-		;;
 	$AUDACIOUS)
 		audtool playlist-reverse
 		;;
@@ -61,8 +49,6 @@ prevalbum)
 	$CMUS)
 		cmus-remote -C "player-prev-album"
 		;;
-	$PIANOBAR)
-		;;
 	$AUDACIOUS)
 		audtool playlist-reverse-album
 		;;
@@ -72,9 +58,6 @@ pause)
 	case $PLAYER in
 	$CMUS)
 		cmus-remote -U
-		;;
-	$PIANOBAR)
-		echo -n 'S' > ~/.config/pianobar/ctl
 		;;
 	$AUDACIOUS)
 		# "audtool playback-pause" should just pause, but it stupidly inverts
@@ -91,11 +74,26 @@ playpause)
 	$CMUS)
 		cmus-remote -u
 		;;
-	$PIANOBAR)
-		echo -n 'p' > ~/.config/pianobar/ctl
-		;;
 	$AUDACIOUS)
 		audtool playback-playpause
+		;;
+	esac
+	;;
+np)
+	case $PLAYER in
+	$CMUS)
+		cmus-remote -Q |
+			awk '
+			$2=="title"        { $1=$2=""; sub(/^  */, ""); title=$0 }
+			$2=="albumartist"  { $1=$2=""; sub(/^  */, ""); artist=$0 }
+			$2=="album"        { $1=$2=""; sub(/^  */, ""); album=$0 }
+			END {
+				print "now playing: " title " by " artist " on " album
+			}'
+		;;
+	$AUDACIOUS)
+		# not yet
+		audtool --current-song
 		;;
 	esac
 	;;

@@ -1,43 +1,34 @@
 #!/bin/sh
 
-TMOUT=300
-LOCK="$HOME/bin/lock"
-
-_xidle() {
-	pgrep -u "$(id -u)" -x xidle
-}
-
 case "$1" in
 	enable)
-		if _xidle >/dev/null; then
-			echo "xidle already running"
-		else
-			xidle -timeout "$TMOUT" -program "$LOCK" &
-			echo "nokeepalive"
+		if [ ! X`pgrep xidle` = X"" ]; then
+			pkill -9 xidle
+			echo "keepalive"
 		fi
 		;;
 	disable)
-		if _xidle >/dev/null; then
-			_xidle | xargs kill
-			echo "keepalive"
+		if [ ! X`pgrep xidle` = X"" ]; then
+			echo "keepalive already disabled"
 		else
-			echo "xidle is not running"
+			xidle -timeout 300 -program ~/bin/lock &
+			echo "nokeepalive"
+		fi
+		;;
+	toggle)
+		if [ ! X`pgrep xidle` = X"" ]; then
+			"$0" enable
+		else
+			"$0" disable
 		fi
 		;;
 	status)
-		if _xidle >/dev/null; then
-      		echo "xidle is running (PID(s): $(_xidle | paste -sd ' '))"
+		if [ ! X`pgrep xidle` = X"" ]; then
+      		echo "keepalive disabled (xidle at: `pgrep xidle`)"
     	else
-      		echo "xidle is not running"
+      		echo "keepalive enabled"
     	fi
     	;;
-	toggle)
-		if _xidle >/dev/null; then
-			"$0" disable
-		else
-			"$0" enable
-		fi
-		;;
 	*)
 		echo "Usage: $0 {enable|disable|toggle|status}"
 		exit 1

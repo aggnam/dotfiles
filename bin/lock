@@ -7,13 +7,12 @@ echo "[$D] locking"
 doas -L
 ssh-add -D
 
+~/bin/keepalive disable
+
 # clear clipboard
 echo -n | pbcopy
 
-pkill -KILL -f chat@
-#if [ ! `pgrep sdorfehs` = "" ]; then
-#	echo nokeepalive > ~/.config/sdorfehs/bar-control
-#fi
 ~/bin/music pause
+playerctl pause firefox
 pkill -9 vlc
 slock

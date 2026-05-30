@@ -1,0 +1,17 @@
+#!/bin/sh
+
+case "$1" in
+	sel)
+		maim -s | xclip -selection clipboard -t image/png
+		;;
+	cap)
+		maim ~/img/captures/$(date +%F_%s).png
+		;;
+	cop)
+		xclip -sel clip -t image/png -o > ~/files/captures/$(date +%F_%s).png
+		;;
+	*)
+		echo "Usage: $0 {sel|cap}"
+		exit 1
+		;;
+esac
