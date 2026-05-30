@@ -1,0 +1,20 @@
+text-width 80
+browser links
+show-read-feeds no
+feed-sort-order unreadarticlecount-asc
+goto-next-feed no
+
+color info default default reverse
+color listnormal color7 default
+color listnormal_unread default default
+color listfocus default default reverse bold
+color listfocus_unread default default reverse bold
+
+bind-key j down feedlist
+bind-key k up feedlist
+bind-key j next articlelist
+bind-key k prev articlelist
+bind-key J next-feed articlelist
+bind-key K prev-feed articlelist
+bind-key j down article
+bind-key k up article
