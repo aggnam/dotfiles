@@ -1,0 +1,22 @@
+* {
+	font-family: "sans-serif";
+	font-size: 11pt;
+}
+
+menubar {
+	background-color: white;
+}
+
+menubar menuitem:hover {
+	background-color: #9eeeee;
+	color: white;
+}
+
+scrollbar slider {
+	min-width: 15px;
+	min-height: 15px;
+}
+
+VteTerminal, vte-terminal {
+	padding: 15px;
+}
