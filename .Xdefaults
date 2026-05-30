@@ -7,25 +7,6 @@ Xcursor.size: 32
 
 *font: -misc-fixed-medium-r-*-*-20-*-*-*-*-*-iso10646-1
 
-!*.background: #ffffea
-
-!*color0: #444444
-!*color8: #333333
-!*color1: #dc322f
-!*color9: #cb4b16
-!*color2: #859900
-!*color10: #93a1a1
-!*color3: #b58900
-!*color11: #839496
-!*color4: #268bd2
-!*color12: #657b83
-!*color5: #d33682
-!*color13: #6c71c4
-!*color6: #66c7ae
-!*color14: #586e75
-!*color7: #d9d7cc
-!*color15: #e5e5e5
-
 xterm*loginShell: true
 xterm*internalBorder: 38
 xterm*termName: xterm-256color
