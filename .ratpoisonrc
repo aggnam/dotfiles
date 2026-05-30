@@ -1,0 +1,29 @@
+escape C-a
+set bargravity c
+set barborder 2
+set bgcolor "#ffa500"
+set font fixed-14
+
+bind Tab focuslast
+bind grave focus
+bind h focusleft
+bind j focusdown
+bind k focusup
+bind l focusright
+bind L exec pkill -USR1 xidle
+bind W exec ratpoison -c "hsplit" -c "resize 200 0"
+definekey top F1 exec ~/bin/volume mute
+definekey top F2 exec ~/bin/volume down
+definekey top F3 exec ~/bin/volume up
+definekey top F9 exec ratpoison -c "echo `~/bin/keepalive toggle`"
+definekey top F10 exec ~/bin/music prev
+definekey top F11 exec ~/bin/music playpause
+definekey top F12 exec ~/bin/music next
+definekey top M-F12 exec ~/bin/music nextalbum
+definekey top M-p exec ratpoison -c "echo `~/bin/music np`"
+definekey top M-x exec ratpoison -c "echo `apm && date`"
+definekey top Print exec ~/bin/ss sel
+
+#exec /usr/local/bin/rpws init 2 -k
+#definekey top M-1 exec rpws 1
+#definekey top M-2 exec rpws 2
